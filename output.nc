@@ -1,0 +1,86 @@
+%
+O1000 (NESTING CUT)
+G20 g90 (Inch, Absolute)
+F1000
+G0 Z0.5 (Safe Height)
+(--- 1st Pass: VERTICAL ---)
+(Vertical Cut #1)
+G0 X37.40 Y0.00
+M3 (Cut On)
+G1 X37.40 Y47.99
+M5 (Cut Off)
+(Vertical Cut #2)
+G0 X74.80 Y0.00
+M3 (Cut On)
+G1 X74.80 Y47.99
+M5 (Cut Off)
+(Vertical Cut #3)
+G0 X112.20 Y0.00
+M3 (Cut On)
+G1 X112.20 Y47.99
+M5 (Cut Off)
+(--- 2nd Pass: HORIZONTAL ---)
+(Horizontal Cut #1)
+G0 X0.00 Y36.77
+M3 S1000
+G1 X37.40 Y36.77
+M5
+(Horizontal Cut #2)
+G0 X0.00 Y25.55
+M3 S1000
+G1 X37.40 Y25.55
+M5
+(Horizontal Cut #3)
+G0 X0.00 Y14.33
+M3 S1000
+G1 X37.40 Y14.33
+M5
+(Horizontal Cut #4)
+G0 X0.00 Y3.11
+M3 S1000
+G1 X37.40 Y3.11
+M5
+(Horizontal Cut #5)
+G0 X37.40 Y36.77
+M3 S1000
+G1 X74.80 Y36.77
+M5
+(Horizontal Cut #6)
+G0 X37.40 Y25.55
+M3 S1000
+G1 X74.80 Y25.55
+M5
+(Horizontal Cut #7)
+G0 X37.40 Y14.33
+M3 S1000
+G1 X74.80 Y14.33
+M5
+(Horizontal Cut #8)
+G0 X37.40 Y3.11
+M3 S1000
+G1 X74.80 Y3.11
+M5
+(Horizontal Cut #9)
+G0 X74.80 Y36.77
+M3 S1000
+G1 X144.02 Y36.77
+M5
+(Horizontal Cut #10)
+G0 X74.80 Y25.55
+M3 S1000
+G1 X144.02 Y25.55
+M5
+(Horizontal Cut #11)
+G0 X74.80 Y14.33
+M3 S1000
+G1 X144.02 Y14.33
+M5
+(Horizontal Cut #12)
+G0 X74.80 Y3.11
+M3 S1000
+G1 X144.02 Y3.11
+M5
+G0 Z10.0
+G0 X0 Y0
+M30 (End of Program)
+%
