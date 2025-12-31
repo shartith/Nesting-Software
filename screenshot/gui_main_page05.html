@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gui_main.py - Page 5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">gui_main.py</span>
+            <span class="page-info">Page 5 / 9 (Lines 201-250)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>201</span><span>202</span><span>203</span><span>204</span><span>205</span><span>206</span><span>207</span><span>208</span><span>209</span><span>210</span><span>211</span><span>212</span><span>213</span><span>214</span><span>215</span><span>216</span><span>217</span><span>218</span><span>219</span><span>220</span><span>221</span><span>222</span><span>223</span><span>224</span><span>225</span><span>226</span><span>227</span><span>228</span><span>229</span><span>230</span><span>231</span><span>232</span><span>233</span><span>234</span><span>235</span><span>236</span><span>237</span><span>238</span><span>239</span><span>240</span><span>241</span><span>242</span><span>243</span><span>244</span><span>245</span><span>246</span><span>247</span><span>248</span><span>249</span><span>250</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">        # self.update_preview() # Disabled per user request
+
+    def log(self, msg):
+        self.log_text.config(state="normal")
+        self.log_text.insert("end", msg + "\n")
+        self.log_text.see("end")
+        self.log_text.config(state="disabled")
+
+    def import_manual_pdf(self):
+        filename = filedialog.askopenfilename(filetypes=[("PDF &amp; Images", "*.pdf *.png *.jpg"), ("All Files", "*.*")])
+        if filename and filename.lower().endswith('.pdf'):
+            try:
+                # 1. Extract Plate Dimensions (Header)
+                w, l = extract_dimensions(filename)
+                if w is not None and l is not None:
+                     self.plate_h.set(str(w))
+                     self.plate_w.set(str(l))
+                     self.log(f"Imported Plate Dims: W={w}, L={l}")
+                else:
+                    self.log("Plate dimensions not found in PDF header.")
+
+                # 2. Extract Part Info (Table)
+                parts_data = extract_table_info(filename)
+                
+                # Clear existing table
+                for item in self.part_list_tree.get_children():
+                    self.part_list_tree.delete(item)
+                
+                if parts_data:
+                     count = 0
+                     for p in parts_data:
+                         # Extraction returns {'length': l, 'width': w, 'quantity': q}
+                         # UI expects (W (Vert), L (Horz), Qty)
+                         # We mapped L=Horizontal, W=Vertical in extraction too.
+                         
+                         p_w = p['width']  # Vertical
+                         p_l = p['length'] # Horizontal
+                         p_qty = p['quantity']
+                         
+                         self.part_list_tree.insert('', 'end', values=(p_w, p_l, p_qty))
+                         count += 1
+                         
+                     self.log(f"Imported {count} unique part types.")
+                     # self.update_preview() # Disabled per user request
+                else:
+                    self.log("Part info table not found or format unrecognized.")
+                    
+            except Exception as e:
+                self.log(f"Import Error: {e}")
+                messagebox.showerror("Error", str(e))</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 425 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

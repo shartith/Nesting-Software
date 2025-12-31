@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image_processor.py - Page 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">image_processor.py</span>
+            <span class="page-info">Page 2 / 3 (Lines 51-100)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span><span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span><span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span><span>88</span><span>89</span><span>90</span><span>91</span><span>92</span><span>93</span><span>94</span><span>95</span><span>96</span><span>97</span><span>98</span><span>99</span><span>100</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">def merge_lines(lines, orientation, tolerance=10):
+    """
+    Merges lines that are close to each other.
+    Simple clustering based on 'x' for vertical and 'y' for horizontal.
+    """
+    if not lines:
+        return []
+
+    # Sort based on primary coordinate
+    idx = 0 if orientation == 'vertical' else 1
+    lines.sort(key=lambda l: l[idx])
+    
+    merged = []
+    current_group = [lines[0]]
+    
+    for i in range(1, len(lines)):
+        line = lines[i]
+        prev_line = current_group[-1]
+        
+        # Check proximity
+        if abs(line[idx] - prev_line[idx]) &lt; tolerance:
+            current_group.append(line)
+        else:
+            merged.append(average_lines(current_group, orientation))
+            current_group = [line]
+            
+    if current_group:
+        merged.append(average_lines(current_group, orientation))
+        
+    return merged
+
+def average_lines(group, orientation):
+    """
+    Averages a group of close lines into a single line.
+    Extends the line to the min/max of the opposing coordinate.
+    """
+    x1s = [l[0] for l in group]
+    y1s = [l[1] for l in group]
+    x2s = [l[2] for l in group]
+    y2s = [l[3] for l in group]
+    
+    if orientation == 'vertical':
+        # Average X, Min Y, Max Y
+        avg_x = int((sum(x1s) + sum(x2s)) / (2 * len(group)))
+        min_y = min(min(y1s), min(y2s))
+        max_y = max(max(y1s), max(y2s))
+        return [avg_x, min_y, avg_x, max_y]
+    else:
+        # Average Y, Min X, Max X
+        avg_y = int((sum(y1s) + sum(y2s)) / (2 * len(group)))</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 121 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

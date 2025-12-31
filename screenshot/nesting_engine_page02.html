@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nesting_engine.py - Page 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">nesting_engine.py</span>
+            <span class="page-info">Page 2 / 4 (Lines 51-100)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span><span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span><span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span><span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span><span>88</span><span>89</span><span>90</span><span>91</span><span>92</span><span>93</span><span>94</span><span>95</span><span>96</span><span>97</span><span>98</span><span>99</span><span>100</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">        
+        # Start new column if needed (first item or column full/mismatch)
+        if col_width == 0:
+            if current_x + l &gt; plate_w:
+                print(f"Part {l}x{w} doesn't fit in remaining width.")
+                i += 1
+                continue
+            col_width = l
+            current_y_from_top = 0
+            
+        # Check Vertical Fit
+        if current_y_from_top + w &lt;= plate_h:
+            # Place it
+            x_pos = current_x
+            y_pos = plate_h - (current_y_from_top + w)
+            
+            placed_rects.append((x_pos, y_pos, l, w))
+            
+            # Horizontal Cut (Green)
+            if y_pos &gt; 0: # Don't cut bottom edge
+                h_lines.append([x_pos, y_pos, x_pos + col_width, y_pos])
+                
+            current_y_from_top += w
+            i += 1 # Item placed
+        else:
+            # Column Full
+            # Finish this column
+            
+            # Vertical Cut (Blue) at right of column
+            cut_x = current_x + col_width
+            if cut_x &lt; plate_w:
+                v_lines.append([cut_x, 0, cut_x, plate_h])
+            
+            current_x += col_width
+            
+            # Reset
+            col_width = 0
+            # Do NOT increment i, try to place this item in next column
+            
+    # Close last column
+    if col_width &gt; 0:
+        cut_x = current_x + col_width
+        if cut_x &lt; plate_w:
+            v_lines.append([cut_x, 0, cut_x, plate_h])
+            
+    return v_lines, h_lines, placed_rects
+
+
+def create_preview_image(plate_w, plate_h, v_lines, h_lines, parts_rects, img_size=(600, 400)):
+    """
+    Creates a visual preview.</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 160 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

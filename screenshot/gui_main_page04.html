@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gui_main.py - Page 4</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">gui_main.py</span>
+            <span class="page-info">Page 4 / 9 (Lines 151-200)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>151</span><span>152</span><span>153</span><span>154</span><span>155</span><span>156</span><span>157</span><span>158</span><span>159</span><span>160</span><span>161</span><span>162</span><span>163</span><span>164</span><span>165</span><span>166</span><span>167</span><span>168</span><span>169</span><span>170</span><span>171</span><span>172</span><span>173</span><span>174</span><span>175</span><span>176</span><span>177</span><span>178</span><span>179</span><span>180</span><span>181</span><span>182</span><span>183</span><span>184</span><span>185</span><span>186</span><span>187</span><span>188</span><span>189</span><span>190</span><span>191</span><span>192</span><span>193</span><span>194</span><span>195</span><span>196</span><span>197</span><span>198</span><span>199</span><span>200</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">        right_panel.pack(side="right", fill="both", expand=True)
+
+        # Use PanedWindow for adjustable split
+        paned = ttk.PanedWindow(right_panel, orient="vertical")
+        paned.pack(fill="both", expand=True)
+
+        # Frame 1: Image Preview
+        preview_frame = ttk.LabelFrame(paned, text="Layout Preview", padding=5)
+        paned.add(preview_frame, weight=2)
+        
+        self.preview_label = ttk.Label(preview_frame)
+        self.preview_label.pack(fill="both", expand=True)
+        
+        # Frame 2: G-Code Text
+        gcode_frame = ttk.LabelFrame(paned, text="G-Code Output", padding=5)
+        paned.add(gcode_frame, weight=1)
+        
+        self.gcode_text = tk.Text(gcode_frame, height=10, state="disabled")
+        scroll = ttk.Scrollbar(gcode_frame, command=self.gcode_text.yview)
+        self.gcode_text.configure(yscrollcommand=scroll.set)
+        
+        self.gcode_text.pack(side="left", fill="both", expand=True)
+        scroll.pack(side="right", fill="y")
+        
+    def browse_pdf(self):
+        filename = filedialog.askopenfilename(filetypes=[("PDF &amp; Images", "*.pdf *.png *.jpg"), ("All Files", "*.*")])
+        if filename:
+            self.pdf_path.set(filename)
+            
+    
+    def add_manual_part(self):
+        try:
+            w = float(self.part_h.get())
+            l = float(self.part_w.get())
+            q = int(self.quantity.get())
+            
+            if q &gt; 0:
+                self.part_list_tree.insert('', 'end', values=(w, l, q))
+                # Clear entries after add
+                self.part_h.set("")
+                self.part_w.set("")
+                self.quantity.set("")
+                # self.update_preview() # Disabled per user request
+        except ValueError:
+            messagebox.showwarning("Input Error", "Please enter valid numeric values for Part Dimensions and Quantity.")
+
+    def remove_selected_part(self):
+        selected_items = self.part_list_tree.selection()
+        for item in selected_items:
+            self.part_list_tree.delete(item)</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 425 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

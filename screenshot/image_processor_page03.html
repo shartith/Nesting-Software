@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image_processor.py - Page 3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">image_processor.py</span>
+            <span class="page-info">Page 3 / 3 (Lines 101-121)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>101</span><span>102</span><span>103</span><span>104</span><span>105</span><span>106</span><span>107</span><span>108</span><span>109</span><span>110</span><span>111</span><span>112</span><span>113</span><span>114</span><span>115</span><span>116</span><span>117</span><span>118</span><span>119</span><span>120</span><span>121</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">        min_x = min(min(x1s), min(x2s))
+        max_x = max(max(x1s), max(x2s))
+        return [min_x, avg_y, max_x, avg_y]
+
+def map_coordinates(lines, img_width, img_height, total_width_mm, total_height_mm):
+    """
+    Converts pixel coordinates to real-world MM coordinates.
+    Returns list of mapped lines.
+    """
+    x_scale = total_width_mm / img_width
+    y_scale = total_height_mm / img_height
+    
+    mapped_lines = []
+    for line in lines:
+        x1, y1, x2, y2 = line
+        mx1 = x1 * x_scale
+        my1 = (img_height - y1) * y_scale # G-code usually has 0,0 at bottom-left, image is top-left
+        mx2 = x2 * x_scale
+        my2 = (img_height - y2) * y_scale
+        mapped_lines.append([mx1, my1, mx2, my2])
+    return mapped_lines
+</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 121 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

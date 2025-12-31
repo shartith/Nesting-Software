@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gui_main.py - Page 7</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">gui_main.py</span>
+            <span class="page-info">Page 7 / 9 (Lines 301-350)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>301</span><span>302</span><span>303</span><span>304</span><span>305</span><span>306</span><span>307</span><span>308</span><span>309</span><span>310</span><span>311</span><span>312</span><span>313</span><span>314</span><span>315</span><span>316</span><span>317</span><span>318</span><span>319</span><span>320</span><span>321</span><span>322</span><span>323</span><span>324</span><span>325</span><span>326</span><span>327</span><span>328</span><span>329</span><span>330</span><span>331</span><span>332</span><span>333</span><span>334</span><span>335</span><span>336</span><span>337</span><span>338</span><span>339</span><span>340</span><span>341</span><span>342</span><span>343</span><span>344</span><span>345</span><span>346</span><span>347</span><span>348</span><span>349</span><span>350</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">            if h &lt; 100: h = 600 # Default larger height
+            
+            preview_img = create_preview_image(pw, ph, v_lines, h_lines, rects, img_size=(w, h))
+            
+            # Not returning None to allow UI update with empty image if needed?
+            # Actually create_preview_image returns an image even if empty.
+            if preview_img:
+                # Convert to Tkinter
+                # Only if using opencv/numpy internally in create_preview_image, which returns PIL Image directly now?
+                # Check nesting_engine.py again. 
+                # Yes, it returns PIL Image.
+                # So no need for cv2.cvtColor unless it returned numpy array.
+                # My previous `nesting_engine.py` view used cv2 internally but returned `Image.fromarray`.
+                # Wait, `Image.fromarray` usually expects RGB. OpenCv is BGR.
+                # In my rewrite of `nesting_engine.py`, I did: `cv2.rectangle(...)` on `img`.
+                # `img` is numpy array.
+                # Then `Image.fromarray(img)`.
+                # OpenCV uses BGR by default? No, `np.ones` creates array.
+                # If I used BGR colors in cv2 calls (e.g. (255,0,0) is Blue in BGR, Red in RGB).
+                # To be safe, let's keep it simple.
+                # I'll Assume `create_preview_image` returns PIL Image.
+                
+                im_tk = ImageTk.PhotoImage(preview_img)
+                self.preview_label.config(image=im_tk)
+                self.preview_label.image = im_tk # Keep ref
+            
+            self.log(f"Preview updated: {len(rects)} parts placed.")
+            return v_lines, h_lines
+            
+        except Exception as e:
+            self.log(f"Preview Error: {e}")
+            messagebox.showerror("Error", str(e))
+            return None, None
+
+    def run_manual_process(self):
+        v_lines, h_lines = self.update_preview()
+        if v_lines is None:
+            return
+            
+        out_file = self.output_path.get()
+        unit = self.unit_var.get()
+        
+        try:
+            gcode = generate_gcode(v_lines, h_lines, unit=unit)
+            with open(out_file, "w") as f:
+                f.write(gcode)
+            
+            # Show in Text Area
+            self.gcode_text.config(state="normal")
+            self.gcode_text.delete("1.0", "end")</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 425 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Screenshot Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .code-content {
+            padding: 0;
+        }
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding-right: 15px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+        .line-numbers span {
+            display: block;
+            padding: 0 10px;
+        }
+        .code-lines {
+            padding-left: 20px !important;
+        }
+        .code-lines pre {
+            padding: 0 !important;
+        }
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name" id="fileName">filename.py</span>
+            <span class="page-info" id="pageInfo">Page 1 / 1 (Lines 1-50)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers" id="lineNumbers"></td>
+                    <td class="code-lines">
+                        <pre><code class="language-python" id="codeContent"></code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span id="projectName">Nesting-Software</span>
+            <span id="dateInfo"></span>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileName = urlParams.get('file') || 'code.py';
+        const startLine = parseInt(urlParams.get('start') || '1');
+        const endLine = parseInt(urlParams.get('end') || '50');
+        const totalLines = parseInt(urlParams.get('total') || '50');
+        const pageNum = parseInt(urlParams.get('page') || '1');
+        const totalPages = parseInt(urlParams.get('pages') || '1');
+        const code = decodeURIComponent(urlParams.get('code') || '');
+
+        // Set content
+        document.getElementById('fileName').textContent = fileName;
+        document.getElementById('pageInfo').textContent = `Page ${pageNum} / ${totalPages} (Lines ${startLine}-${endLine})`;
+        document.getElementById('dateInfo').textContent = new Date().toLocaleDateString('ko-KR');
+        
+        // Set line numbers
+        let lineNums = '';
+        for (let i = startLine; i <= endLine; i++) {
+            lineNums += `<span>${i}</span>`;
+        }
+        document.getElementById('lineNumbers').innerHTML = lineNums;
+        
+        // Set code content
+        document.getElementById('codeContent').textContent = code;
+        
+        // Highlight
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

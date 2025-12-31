@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gui_main.py - Page 3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .file-header {
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .code-content {
+            padding: 0;
+        }
+
+        pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .code-table td {
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .line-numbers {
+            width: 60px;
+            background: #0d1117;
+            text-align: right;
+            padding: 15px 15px 15px 10px !important;
+            color: #484f58;
+            font-size: 13px;
+            line-height: 1.6;
+            user-select: none;
+            border-right: 1px solid #21262d;
+        }
+
+        .line-numbers span {
+            display: block;
+        }
+
+        .code-lines {
+            padding-left: 20px !important;
+        }
+
+        .hljs {
+            background: transparent !important;
+            padding: 15px 0 !important;
+        }
+
+        .footer {
+            background: #0d1117;
+            padding: 12px 25px;
+            border-top: 1px solid #21262d;
+            font-size: 12px;
+            color: #8b949e;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="code-container">
+        <div class="file-header">
+            <span class="file-name">gui_main.py</span>
+            <span class="page-info">Page 3 / 9 (Lines 101-150)</span>
+        </div>
+        <div class="code-content">
+            <table class="code-table">
+                <tr>
+                    <td class="line-numbers">
+                        <span>101</span><span>102</span><span>103</span><span>104</span><span>105</span><span>106</span><span>107</span><span>108</span><span>109</span><span>110</span><span>111</span><span>112</span><span>113</span><span>114</span><span>115</span><span>116</span><span>117</span><span>118</span><span>119</span><span>120</span><span>121</span><span>122</span><span>123</span><span>124</span><span>125</span><span>126</span><span>127</span><span>128</span><span>129</span><span>130</span><span>131</span><span>132</span><span>133</span><span>134</span><span>135</span><span>136</span><span>137</span><span>138</span><span>139</span><span>140</span><span>141</span><span>142</span><span>143</span><span>144</span><span>145</span><span>146</span><span>147</span><span>148</span><span>149</span><span>150</span>
+                    </td>
+                    <td class="code-lines">
+                        <pre><code class="language-python">        
+        ttk.Label(left_panel, text="Plate Dimensions").pack(anchor="w", pady=(0, 5))
+        ttk.Label(left_panel, text="Width (W) [Vertical]:").pack(anchor="w")
+        ttk.Entry(left_panel, textvariable=self.plate_h).pack(fill="x")
+        ttk.Label(left_panel, text="Length (L) [Horizontal]:").pack(anchor="w")
+        ttk.Entry(left_panel, textvariable=self.plate_w).pack(fill="x")
+        
+        ttk.Separator(left_panel, orient="horizontal").pack(fill="x", pady=15)
+        
+        ttk.Label(left_panel, text="Part Dimensions").pack(anchor="w", pady=(0, 5))
+        
+        # Part Input Frame
+        part_input_frame = ttk.Frame(left_panel)
+        part_input_frame.pack(fill="x")
+        
+        ttk.Label(part_input_frame, text="W (Vert):").grid(row=0, column=0, sticky="w")
+        ttk.Entry(part_input_frame, textvariable=self.part_h, width=8).grid(row=0, column=1, padx=2)
+        
+        ttk.Label(part_input_frame, text="L (Horz):").grid(row=0, column=2, sticky="w")
+        ttk.Entry(part_input_frame, textvariable=self.part_w, width=8).grid(row=0, column=3, padx=2)
+        
+        ttk.Label(part_input_frame, text="Qty:").grid(row=0, column=4, sticky="w")
+        ttk.Entry(part_input_frame, textvariable=self.quantity, width=5).grid(row=0, column=5, padx=2)
+        
+        ttk.Button(left_panel, text="Add Part", command=self.add_manual_part).pack(fill="x", pady=5)
+        
+        # Treeview for Part List
+        cols = ('W', 'L', 'Qty')
+        self.part_list_tree = ttk.Treeview(left_panel, columns=cols, show='headings', height=6)
+        
+        self.part_list_tree.heading('W', text='W (Vert)')
+        self.part_list_tree.heading('L', text='L (Horz)')
+        self.part_list_tree.heading('Qty', text='Qty')
+        
+        self.part_list_tree.column('W', width=60, anchor='center')
+        self.part_list_tree.column('L', width=60, anchor='center')
+        self.part_list_tree.column('Qty', width=40, anchor='center')
+        
+        self.part_list_tree.pack(fill="both", expand=True, pady=5)
+        
+        ttk.Button(left_panel, text="Remove Selected", command=self.remove_selected_part).pack(fill="x", pady=2)
+        
+        self.enable_rem_cut = tk.BooleanVar(value=True)
+        ttk.Checkbutton(left_panel, text="Cut Remnant (잔량 절단)", variable=self.enable_rem_cut).pack(fill="x", pady=(10, 0))
+        
+        ttk.Button(left_panel, text="Update Preview", command=self.update_preview).pack(fill="x", pady=20)
+        ttk.Button(left_panel, text="Generate G-Code", command=self.run_manual_process).pack(fill="x")
+        
+        # Right Panel: Visualization (Preview + GCode)
+        right_panel = ttk.Frame(self.manual_tab, padding=10)</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Nesting-Software</span>
+            <span>Total: 425 lines</span>
+        </div>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
